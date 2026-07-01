@@ -1,39 +1,67 @@
 
 #include <unistd.h>
 
-void ft_putchar(char c)
+void	ft_putchar(char c)
 {
-    write(1, &c, 1);
+	write(1, &c, 1);
 }
 
-void ft_putaddr(unsigned long long addr)
+void	ft_putaddr(unsigned long long addr)
 {
-    if (addr >= 16)
-        ft_putaddr(addr / 16);
-    ft_putchar("0123456789abcdef"[addr % 16]);
+	if (addr >= 16)
+		ft_putaddr(addr / 16);
+	ft_putchar("0123456789abcdef"[addr % 16]);
 }
 
-void ft_print_address(char *addr, unsigned int n)
+void	ft_print_address(char *addr, unsigned int n)
 {
-    unsigned int i;
+	unsigned int	i;
 
-    i = 0;
-    while(i < n - 1)
-    {
-    ft_putaddr(&addr[i]);
-    i++;
-    }
+	i = 0;
+	while (i < n - 1)
+	{
+		ft_putaddr(&addr[i]);
+		i++;
+	}
+}
+void	ft_putstr_non_printable(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		ft_putchar(' ');
+		ft_putchar("0123456789abcdef"[str[i] / 16]);
+		ft_putchar("0123456789abcdef"[str[i] % 16]);
+		i++;
+	}
 }
 
-void *ft_print_memory(void *addr, unsigned int size)
+void	*ft_print_memory(void *addr, unsigned int size)
 {
-    ft_print_address(addr, size);
-    return (addr);
+	int	i;
+
+	i = 0;
+	ft_print_address(addr, size);
+	while (i < size - 1)
+	{
+		ft_putstr_non_printable(&addr[i]);
+		i++;
+	}
+	i =0;
+	while (i < size - 1)
+	{
+		ft_putchar(&addr[i]);
+		i++;
+	}
+
+	return (addr);
 }
 
-int main(void)
+int	main(void)
 {
-    char *str = "Hello, World!";
-    ft_print_memory(str, 13);
-    return (0);
+	char *str = "Hello, World!";
+	ft_print_memory(str, 2);
+	return (0);
 }
