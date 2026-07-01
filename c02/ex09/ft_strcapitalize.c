@@ -11,9 +11,36 @@
 /* ************************************************************************** */
 #include <stdio.h>
 
+int	ft_char_is_alphanum(char c)
+{
+	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9'))
+		return (1);
+	else
+		return (0);
+}
+
 void	ft_chrupcase(char *str)
 {
 	*str = *str - 32;
+}
+
+void ft_chrlowcase(char *str)
+{
+	*str = *str + 32;
+}
+
+char *ft_strlowcase(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i] >= 'A' && str[i] <= 'Z')
+			str[i] = str[i] + 32;
+		i++;
+	}
+	return (str);
 }
 
 char	*ft_strcapitalize(char *str)
@@ -21,14 +48,15 @@ char	*ft_strcapitalize(char *str)
 	int	i;
 
 	i = 0;
+	 if (str[0] == '\0')
+        return (str);
+	ft_strlowcase(&str[i]);
 	if (str[i] >= 'a' && str[i] <= 'z')
-	{
-		ft_chrupcase(&str[i]);
-	}
-	i++;
+    ft_chrupcase(&str[i]);
+	
 	while (str[i] != '\0')
 	{
-		if (str[i] == ' ' || str[i] == '-' || str[i] == '+')
+		if (!(ft_char_is_alphanum(str[i]) ))
 		{
 			if (str[i + 1] >= 'a' && str[i + 1] <= 'z')
 			{
@@ -40,9 +68,3 @@ char	*ft_strcapitalize(char *str)
 	return (str);
 }
 
-int	main(void)
-{
-	char a[] = "asdasd asdasd-asdasd -asd  asd+a +a" ;
-	ft_strcapitalize(a);
-	printf("%s", a);
-}

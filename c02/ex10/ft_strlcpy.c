@@ -1,28 +1,24 @@
-/*
-** EPITECH PROJECT, 2024
-** ft_strlcpy
-** File description:
-** Copies string with size limit
-*/
-
-
 
 unsigned int	ft_strlcpy(char *dest, const char *src, unsigned int size)
 {
 	unsigned int	i;
-	unsigned int	src_len;
+	unsigned int	j;
 
+	j = 0;
 	i = 0;
-	src_len = 0;
-	while (src[src_len])
-		src_len++;
-	if (size == 0)
-		return (src_len);
-	while (src[i] && i < size - 1)
+	while (i + 1 < size  && src[i] != 0)
 	{
 		dest[i] = src[i];
 		i++;
 	}
-	dest[i] = '\0';
-	return (src_len);
+	if (size != 0)
+	{
+		dest[i] = '\0';
+	}
+	while (src[j])
+	{
+		j++;
+	}
+	
+	return (j);
 }
